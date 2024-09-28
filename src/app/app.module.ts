@@ -3,14 +3,28 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BooksListComponent } from './components/books-list/books-list.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BooksListComponent,
+    UsersListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    ButtonModule,
+    TableModule
   ],
   providers: [
     provideClientHydration()
