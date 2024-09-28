@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AssignedBooksListComponent } from './components/assigned-books-list/assigned-books-list.component';
 
 
 
@@ -17,7 +18,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AppComponent,
     BooksListComponent,
     UsersListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AssignedBooksListComponent
   ],
   imports: [
     BrowserModule,
