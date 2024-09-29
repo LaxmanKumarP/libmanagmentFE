@@ -13,13 +13,15 @@ import { AssignedBooksListComponent } from './components/assigned-books-list/ass
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     BooksListComponent,
     UsersListComponent,
     PageNotFoundComponent,
-    AssignedBooksListComponent
+    AssignedBooksListComponent,
+
   ],
   imports: [
     BrowserModule,

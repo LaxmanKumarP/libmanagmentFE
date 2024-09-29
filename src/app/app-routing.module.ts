@@ -6,7 +6,8 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AssignedBooksListComponent } from './components/assigned-books-list/assigned-books-list.component';
 
-const routes: Routes = [ 
+
+const routes: Routes = [
    {path:'',pathMatch:'full',component:BooksListComponent},
    {path:'bookslist',component:BooksListComponent},
    {path:'userslist',component:UsersListComponent},
@@ -18,6 +19,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
+export class AppRoutingModule {
 
 }
