@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AssignedBooksListComponent } from './components/assigned-books-list/assigned-books-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -28,7 +29,9 @@ import { AssignedBooksListComponent } from './components/assigned-books-list/ass
     AppRoutingModule,
     NgbModule,
     ButtonModule,
-    TableModule
+    TableModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

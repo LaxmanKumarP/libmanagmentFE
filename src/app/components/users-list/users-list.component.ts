@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-users-list',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class UsersListComponent implements OnInit{
   cols: any;
   usersList: any;
+  createUserForm!: FormGroup;
   constructor(){
     this.cols = [
       { field: 'id', header: 'Id' },
@@ -23,6 +25,25 @@ export class UsersListComponent implements OnInit{
   }
   ngOnInit(): void {
     this.usersList = this.getUsersList();
+    this.createUserForm = new FormGroup({
+      'userDetails': new FormGroup({
+        'name': new FormControl('',[Validators.required]),
+        'dob': new FormControl('',[Validators.required]),
+        'emailId': new FormControl('',[Validators.required]),
+        'address': new FormControl('',[Validators.required]),
+        'category': new FormControl('',[Validators.required]),
+        'role': new FormControl('',[Validators.required]),
+        'grade': new FormControl('',[Validators.required]),
+        'createdBy': new FormControl('',[Validators.required]),
+        'updatedBy': new FormControl('',[Validators.required]),
+        'bookLimit': new FormControl('',[Validators.required]),
+        'currentBookLimit': new FormControl('',[Validators.required])
+      })
+    })
+  }
+
+  onSubmit(){
+    console.log('submit clicked');
   }
 
   getUsersList(){

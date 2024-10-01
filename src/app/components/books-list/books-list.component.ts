@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-books-list',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class BooksListComponent implements OnInit{
   cols!:any;
   booksList!:any;
+  createBooksForm!:FormGroup;
 
   constructor(){
     this.cols = [
@@ -24,8 +26,27 @@ export class BooksListComponent implements OnInit{
   
   ngOnInit(): void {
     this.booksList = this.getBooksList();
+    this.createBooksForm = new FormGroup({
+    'booksDetails': new FormGroup({
+      'title': new FormControl('',[Validators.required]),
+      'author': new FormControl('',[Validators.required]),
+      'yearofmade': new FormControl('',[Validators.required]),
+      'totalcount': new FormControl('',[Validators.required]),
+      'avlblcount': new FormControl('',[Validators.required]),
+      'publisher': new FormControl('',[Validators.required]),
+      'subject': new FormControl('',[Validators.required]),
+      'createdBy': new FormControl('',[Validators.required]),
+      'updatedBy': new FormControl('',[Validators.required])
+    })
+    })
   } 								
 
+
+  onSubmit(){
+    console.log('submit clicked');
+  }
+
+  
   getBooksList(){
     return [{
              'id':1,

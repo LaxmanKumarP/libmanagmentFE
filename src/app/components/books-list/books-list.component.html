@@ -16,3 +16,55 @@
         </ng-template>
     </p-table>
 </div>
+
+<div class="container">
+    <form [formGroup]="createBooksForm" (ngSubmit)="onSubmit()">
+        <div formGroupName='booksDetails'>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" formControlName="title">
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" class="form-control" id="author" formControlName="author">
+            </div>
+
+            <div class="form-group">
+                <label for="yearofmade">Year of made</label>
+                <input type="text" class="form-control" id="yearofmade" formControlName="yearofmade">
+            </div>
+
+            <div class="form-group">
+                <label for="totalcount">Total Count</label>
+                <input type="text" class="form-control" id="totalcount" formControlName="totalcount">
+            </div>
+
+            <div class="form-group">
+                <label for="avlblcount">Avilable Count</label>
+                <input type="text" class="form-control" id="avlblcount" formControlName="avlblcount">
+            </div>
+
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <input type="text" class="form-control" id="publisher" formControlName="publisher">
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" formControlName="subject">
+            </div>
+
+            <div class="form-group">
+                <label for="createdBy">CreatedBy</label>
+                <input type="text" class="form-control" id="createdBy" formControlName="createdBy">
+            </div>
+
+            <div class="form-group">
+                <label for="updatedBy">UpdatedBy</label>
+                <input type="text" class="form-control" id="updatedBy" formControlName="updatedBy">
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button> 
+    </form>
+</div>
