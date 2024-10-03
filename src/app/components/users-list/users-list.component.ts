@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-users-list',
@@ -9,8 +10,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UsersListComponent implements OnInit{
   cols: any;
   usersList: any;
+  formData:any;
   createUserForm!: FormGroup;
-  constructor(){
+  constructor(private sharedService:SharedService){
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'name', header: 'Name' },
@@ -18,13 +20,21 @@ export class UsersListComponent implements OnInit{
       { field: 'emailId', header: 'Email ID' },
       { field: 'address', header: 'Address' },
       { field: 'category', header: 'Category' },
-      { field: 'roleId', header: 'Role Id' },
+      { field: 'role', header: 'Role Id' },
       { field: 'grade', header: 'Grade' },
-      { field: 'bookLimit', header: 'Book Limit' }
+      { field: 'createdBy', header: 'Created By' },
+      { field: 'updatedBy', header: 'Updated By' },
+      { field: 'bookLimit', header: 'Book Limit' },
+      { field: 'currentBookLimit', header: 'Current BookLimit' }
     ];
   }
+
   ngOnInit(): void {
-    this.usersList = this.getUsersList();
+    // this.usersList = this.getUsersList();
+    this.sharedService.getUsersList().subscribe(res=>{
+      console.log(res,'res');
+      this.usersList = res;
+    })
     this.createUserForm = new FormGroup({
       'userDetails': new FormGroup({
         'name': new FormControl('',[Validators.required]),
@@ -43,50 +53,60 @@ export class UsersListComponent implements OnInit{
   }
 
   onSubmit(){
+    // this.formData = {name:form.value.name};
     console.log('submit clicked');
+    // console.log('formdata',  this.formData );
+    this.createUserForm.valueChanges.subscribe(value => {
+      console.log('Form changes:', value);
+    });
+  
+    // this.formData 
   }
 
-  getUsersList(){
-    return [{
-      'id':1,
-      'name':'Laxman',
-      'dob':'09/04',
-      'emailId':'laxman@google.com',
-      'address':2012,
-      'category':'Lecturer', 
-      'roleId':'LBR',
-      'grade':'Library',
-      'bookLimit':10},
-      {
-        'id':2,
-        'name':'Chinna',
-        'dob':'03/07',
-        'emailId':'chinna@google.com',
-        'address':2014,
-        'category':'Lecturer', 
-        'roleId':'Science',
-        'grade':217,
-        'bookLimit':10},
-        {
-          'id':3,
-          'name':'Vinni',
-          'dob':'09/04',
-          'emailId':'vinni@google.com',
-          'address':2012,
-          'category':'Student', 
-          'roleId':'Maths',
-          'grade':217,
-          'bookLimit':6},
-          {
-            'id':4,
-            'name':'henu',
-            'dob':'03/04',
-            'emailId':'henu@google.com',
-            'address':2012,
-            'category':'Lecturer', 
-            'roleId':'LBR',
-            'grade':'chk',
-            'bookLimit':10},
-    ]
-  }
+
+  // getUsersList(){
+    // return 
+    
+    // [{
+    //   'id':1,
+    //   'name':'Laxman',
+    //   'dob':'09/04',
+    //   'emailId':'laxman@google.com',
+    //   'address':2012,
+    //   'category':'Lecturer', 
+    //   'roleId':'LBR',
+    //   'grade':'Library',
+    //   'bookLimit':10},
+    //   {
+    //     'id':2,
+    //     'name':'Chinna',
+    //     'dob':'03/07',
+    //     'emailId':'chinna@google.com',
+    //     'address':2014,
+    //     'category':'Lecturer', 
+    //     'roleId':'Science',
+    //     'grade':217,
+    //     'bookLimit':10},
+    //     {
+    //       'id':3,
+    //       'name':'Vinni',
+    //       'dob':'09/04',
+    //       'emailId':'vinni@google.com',
+    //       'address':2012,
+    //       'category':'Student', 
+    //       'roleId':'Maths',
+    //       'grade':217,
+    //       'bookLimit':6},
+    //       {
+    //         'id':4,
+    //         'name':'henu',
+    //         'dob':'03/04',
+    //         'emailId':'henu@google.com',
+    //         'address':2012,
+    //         'category':'Lecturer', 
+    //         'roleId':'LBR',
+    //         'grade':'chk',
+    //         'bookLimit':10},
+    // ]
+  // }
 }

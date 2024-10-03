@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AssignedBooksListComponent } from './components/assigned-books-list/assigned-books-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonModule,
     TableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()
