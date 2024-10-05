@@ -11,6 +11,7 @@ export class BooksListComponent implements OnInit{
   cols!:any;
   booksList!:any;
   createBooksForm!:FormGroup;
+  selectedRowData:any;
   constructor(private sharedService:SharedService){
     this.cols = [
       { field: 'id', header: 'Id' },
@@ -27,13 +28,21 @@ export class BooksListComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    // this.booksList = this.getBooksList();
+    this.getBooksList();
+    this.createForm();
+  } 								
+
+  //get books list
+  getBooksList(){
     this.sharedService.getBooksList().subscribe(res=>{
       console.log(res,'res');
       this.booksList = res;
     })
+  }
+
+  //Form Creation
+  createForm(){
     this.createBooksForm = new FormGroup({
-    'booksDetails': new FormGroup({
       'title': new FormControl('',[Validators.required]),
       'author': new FormControl('',[Validators.required]),
       'yearofmade': new FormControl('',[Validators.required]),
@@ -42,63 +51,60 @@ export class BooksListComponent implements OnInit{
       'publisher': new FormControl('',[Validators.required]),
       'subject': new FormControl('',[Validators.required]),
       'createdBy': new FormControl('',[Validators.required]),
-      'updatedBy': new FormControl('',[Validators.required])
+      'updatedBy': new FormControl('',[Validators.required]),
     })
-    })
-  } 								
+  }
+
 
   onSubmit(){
-    console.log('submit clicked');
+    if (this.createBooksForm.valid){
+      // const formValues = this.createBooksForm.getRawValue();
+      // this.sendFormValues(formValues);
+        this.submitFormDetails()
+    }else{
+      console.log('Form is invalid');
+    }
+    }
+
+  sendFormValues(formValues: any){
+    this.sharedService.createBookDetails(formValues).subscribe(res =>{
+      console.log(res,'chek post response');
+    })
   }
 
-  
-  getBooksList(){
-    // return [{
-    //          'id':1,
-    //          'title':'Angular',
-    //          'authorName':'Google',
-    //          'publisher':'Google.com',
-    //          'year':2012,
-    //          'category':'Technology', 
-    //          'totalCount':300,
-    //          'availableCount':217},
-    //          {
-    //           'id':2,
-    //           'title':'React',
-    //           'authorName':'Meta',
-    //           'publisher':'Meta.com',
-    //           'year':2013,
-    //           'category':'Technology', 
-    //           'totalCount':340,
-    //           'availableCount':117},
-    //           {
-    //             'id':3,
-    //             'title':'Java',
-    //             'authorName':'Oracle',
-    //             'publisher':'Oracle.com',
-    //             'year':2014,
-    //             'category':'Technology', 
-    //             'totalCount':600,
-    //             'availableCount':317},
-    //             {
-    //               'id':4,
-    //               'title':'Pega',
-    //               'authorName':'PSA',
-    //               'publisher':'Psa.com',
-    //               'year':2012,
-    //               'category':'Technology', 
-    //               'totalCount':200,
-    //               'availableCount':17},
-    //               {
-    //                 'id':5,
-    //                 'title':'SAP',
-    //                 'authorName':'SAP',
-    //                 'publisher':'sap.com',
-    //                 'year':2002,
-    //                 'category':'Technology', 
-    //                 'totalCount':304,
-    //                 'availableCount':27}
-    // ]
+  onEdit(rowdata:any){
+    console.log('Captured Row:', rowdata);
+    this.selectedRowData = rowdata;
+    this.createBooksForm.patchValue({
+      'title': rowdata.title,
+      'author':rowdata.author,
+      'yearofmade': rowdata.yearofmade,
+      'totalcount': rowdata.totalcount,
+      'avlblcount': rowdata.avlblcount,
+      'publisher': rowdata.publisher,
+      'subject': rowdata.subject,
+      'createdBy': rowdata.createdBy,
+      'updatedBy': rowdata.updatedBy
+    })
   }
 
+  submitFormDetails(){
+    let formValues = this.createBooksForm.getRawValue();
+    this.sharedService.createBookDetails(formValues).subscribe(res =>{
+      this.getBooksList();
+      this.createBooksForm.reset();
+    });
+  }
+
+  updateFormDetails(){
+    let updatedFormDetails = this.createBooksForm.getRawValue();
+    updatedFormDetails['id'] = this.selectedRowData.id;
+    this.sharedService.updateBookDetails(updatedFormDetails).subscribe(res =>{
+    this.getBooksList();
+    this.createBooksForm.reset();
+    })
+  }
+  onUpdate(){
+   this.updateFormDetails();
+  }
 }

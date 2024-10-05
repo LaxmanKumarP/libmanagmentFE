@@ -12,6 +12,7 @@ export class UsersListComponent implements OnInit{
   usersList: any;
   formData:any;
   createUserForm!: FormGroup;
+  selectedRowData:any;
   constructor(private sharedService:SharedService){
     this.cols = [
       { field: 'id', header: 'Id' },
@@ -30,13 +31,12 @@ export class UsersListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.usersList = this.getUsersList();
-    this.sharedService.getUsersList().subscribe(res=>{
-      console.log(res,'res');
-      this.usersList = res;
-    })
+    this.getUsersList();
+    this.createForm();
+  }
+
+  createForm(){
     this.createUserForm = new FormGroup({
-      'userDetails': new FormGroup({
         'name': new FormControl('',[Validators.required]),
         'dob': new FormControl('',[Validators.required]),
         'emailId': new FormControl('',[Validators.required]),
@@ -48,65 +48,52 @@ export class UsersListComponent implements OnInit{
         'updatedBy': new FormControl('',[Validators.required]),
         'bookLimit': new FormControl('',[Validators.required]),
         'currentBookLimit': new FormControl('',[Validators.required])
-      })
     })
   }
 
-  onSubmit(){
-    // this.formData = {name:form.value.name};
-    console.log('submit clicked');
-    // console.log('formdata',  this.formData );
-    this.createUserForm.valueChanges.subscribe(value => {
-      console.log('Form changes:', value);
-    });
-  
-    // this.formData 
+  getUsersList(){
+    this.sharedService.getUsersList().subscribe(res=>{
+      this.usersList = res;
+    })
   }
 
+  onEdit(rowdata:any){
+    console.log('Edit clicked');
 
-  // getUsersList(){
-    // return 
-    
-    // [{
-    //   'id':1,
-    //   'name':'Laxman',
-    //   'dob':'09/04',
-    //   'emailId':'laxman@google.com',
-    //   'address':2012,
-    //   'category':'Lecturer', 
-    //   'roleId':'LBR',
-    //   'grade':'Library',
-    //   'bookLimit':10},
-    //   {
-    //     'id':2,
-    //     'name':'Chinna',
-    //     'dob':'03/07',
-    //     'emailId':'chinna@google.com',
-    //     'address':2014,
-    //     'category':'Lecturer', 
-    //     'roleId':'Science',
-    //     'grade':217,
-    //     'bookLimit':10},
-    //     {
-    //       'id':3,
-    //       'name':'Vinni',
-    //       'dob':'09/04',
-    //       'emailId':'vinni@google.com',
-    //       'address':2012,
-    //       'category':'Student', 
-    //       'roleId':'Maths',
-    //       'grade':217,
-    //       'bookLimit':6},
-    //       {
-    //         'id':4,
-    //         'name':'henu',
-    //         'dob':'03/04',
-    //         'emailId':'henu@google.com',
-    //         'address':2012,
-    //         'category':'Lecturer', 
-    //         'roleId':'LBR',
-    //         'grade':'chk',
-    //         'bookLimit':10},
-    // ]
-  // }
+    this.selectedRowData = rowdata;
+    this.createUserForm.patchValue({
+      'name': rowdata.name,
+      'dob': rowdata.dob,
+      'emailId': rowdata.emailId,
+      'address': rowdata.address,
+      'category': rowdata.category,
+      'role': rowdata.role,
+      'grade': rowdata.grade,
+      'createdBy': rowdata.createdBy,
+      'updatedBy': rowdata.updatedBy,
+      'bookLimit': rowdata.bookLimit,
+      'currentBookLimit': rowdata.currentBookLimit,
+    })
+
+  }
+
+  onSubmit(){
+    let formValues = this.createUserForm.getRawValue()
+    this.sharedService.createUserDetails(formValues).subscribe(res=>{
+      console.log('re',res);
+      this.getUsersList();
+      this.createUserForm.reset();
+    })
+  }
+
+  onUpdate(){
+    console.log('update clicked');
+    let updatedFormDetails = this.createUserForm.getRawValue();
+    updatedFormDetails['id'] = this.selectedRowData.id;
+    console.log(updatedFormDetails,'updatedFormDetails');
+    this.sharedService.updateUserDetails(updatedFormDetails).subscribe(res =>{
+      this.getUsersList();
+      this.createUserForm.reset();
+      })
+  }
 }

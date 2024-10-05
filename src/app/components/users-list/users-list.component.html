@@ -5,6 +5,7 @@
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
+                <th>Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -12,6 +13,7 @@
                 <td *ngFor="let col of columns">
                     {{ rowData[col.field] }}
                 </td>
+                <td (click)="onEdit(rowData)">Edit</td>
             </tr>
         </ng-template>
     </p-table>
@@ -19,7 +21,6 @@
 
 <div class="container">
     <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
-        <div formGroupName='userDetails'>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
@@ -74,7 +75,8 @@
                 <label for="currentBookLimit">CurrentBookLimit</label>
                 <input type="text" class="form-control" id="currentBookLimit" formControlName="currentBookLimit">
             </div>
-        </div>
         <button class="btn btn-primary" type="submit">Submit</button> 
+        <button class="btn btn-primary" type="button" (click)="onUpdate()">Update</button> 
+
     </form>
 </div>
