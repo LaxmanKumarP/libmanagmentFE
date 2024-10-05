@@ -96,4 +96,8 @@ export class UsersListComponent implements OnInit{
       this.createUserForm.reset();
       })
   }
+
+  onDelete(){
+    
+  }
 }

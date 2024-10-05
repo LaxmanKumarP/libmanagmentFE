@@ -107,4 +107,8 @@ export class BooksListComponent implements OnInit{
   onUpdate(){
    this.updateFormDetails();
   }
+
+  onDelete(){
+    
+  }
 }

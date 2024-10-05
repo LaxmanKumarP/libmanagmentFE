@@ -13,7 +13,11 @@
                 <td *ngFor="let col of columns">
                     {{ rowData[col.field] }}
                 </td>
-                <td (click)="onEdit(rowData)">Edit</td>
+                <!-- <td></td> -->
+                <td>
+                <span (click)="onEdit(rowData)"><i class="bi bi-pencil-square"></i></span>
+                <span (click)="onDelete()"><i class="bi bi-trash3-fill"></i></span>
+                </td>
             </tr>
         </ng-template>
     </p-table>

@@ -12,7 +12,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AssignedBooksListComponent } from './components/assigned-books-list/assigned-books-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BooksFormComponent } from './components/books-form/books-form.component';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -23,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     UsersListComponent,
     PageNotFoundComponent,
     AssignedBooksListComponent,
+    BooksFormComponent,
 
   ],
   imports: [
@@ -33,7 +37,10 @@ import { HttpClientModule } from '@angular/common/http';
     TableModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DialogModule,
+    InputTextModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration()
